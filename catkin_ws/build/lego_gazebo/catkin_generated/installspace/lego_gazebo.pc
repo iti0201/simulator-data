@@ -1,8 +1,0 @@
-prefix=/home/osboxes/simulator-data/catkin_ws/install
-
-Name: lego_gazebo
-Description: Description of lego_gazebo
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/osboxes/simulator-data/catkin_ws/install/lib 
-Requires: 
