@@ -1,0 +1,16 @@
+material RaceTrack/track
+    {
+      technique
+      {
+        pass
+        {
+
+
+          texture_unit
+          {
+            texture racetrack.jpg
+            filtering trilinear
+          }
+        }
+      }
+    }

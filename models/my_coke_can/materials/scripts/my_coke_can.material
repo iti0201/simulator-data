@@ -1,0 +1,16 @@
+material MyCokeCan/can
+    {
+      technique
+      {
+        pass
+        {
+
+
+          texture_unit
+          {
+            texture coke_can.png
+            filtering trilinear
+          }
+        }
+      }
+    }

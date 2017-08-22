@@ -1,0 +1,425 @@
+<?xml version='1.0'?>
+<sdf version='1.4'>
+  <model name="lego_robot">
+    <static>false</static>
+    <link name='chassis'>
+      <pose>0 0 0 0 0 0</pose>
+      <inertial>
+        <mass>2</mass>
+        <pose>0 0 0.05 0 0 0</pose>
+        <inertia>
+          <ixx>0.003</ixx>
+          <iyy>0.003</iyy>
+          <izz>0.002</izz>
+        </inertia>
+      </inertial>
+
+      <collision name='collision'>
+        <geometry>
+	  <!--box>
+	    <size>0.09 0.18 .118</size>
+	  </box-->
+	  <mesh>
+            <uri>model://lego_mindstorm/meshes/body.dae</uri>
+          </mesh>
+        </geometry>
+      </collision>
+
+      <visual name='visual'>
+        <geometry>
+	  <!--box>
+	    <size>0.09 0.18 .118</size>
+	  </box-->
+	  <mesh>
+            <uri>model://lego_mindstorm/meshes/body.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+      
+      <collision name='caster_collision'>
+    	<pose>0 -0.0777713 0 0 0 0</pose>
+    	<geometry>
+	  <mesh>
+            <uri>model://lego_mindstorm/meshes/caster.dae</uri>
+          </mesh>
+    	</geometry>
+
+    	<surface>
+      	  <friction>
+	    <ode>
+	    <mu>0</mu>
+	    <mu2>0</mu2>
+	    <slip1>1.0</slip1>
+	    <slip2>1.0</slip2>
+	    </ode>
+	  </friction>
+    	</surface>
+      </collision>
+
+      <visual name='caster_visual'>
+    	<pose>0 -0.0777713 0 0 0 0</pose>
+    	<geometry>
+	  <mesh>
+            <uri>model://lego_mindstorm/meshes/caster.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+
+      <collision name='camera_collision'>
+    	<pose>0.0555 0.106 0.03 0 0 0</pose>
+    	<geometry>
+	  <box>
+	    <size>0.023 0.023 .04</size>
+	  </box>
+    	</geometry>
+      </collision>
+
+      <visual name='camera_visual'>
+    	<pose>0.0555 0.1005 0.03 0 0 0</pose>
+    	<geometry>
+	  <box>
+	    <size>0.023 0.023 .04</size>
+	  </box>
+        </geometry>
+      </visual>
+
+      <sensor name="camera" type="camera">
+	<pose>0.0555 0.1005 0.03 0 1.5707 1.5707</pose>
+        <camera>
+          <horizontal_fov>0.4</horizontal_fov>
+          <image>
+            <!--width>320</width>
+            <height>240</height-->
+	    <width>48</width>
+            <height>48</height>
+          </image>
+          <clip>
+            <near>0.021</near>
+            <far>0.031</far>
+          </clip>
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+        <visualize>true</visualize>
+
+	<plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+          <alwaysOn>true</alwaysOn>
+          <updateRate>30.0</updateRate>
+          <cameraName>camera1</cameraName>
+          <imageTopicName>image_raw</imageTopicName>
+          <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+          <frameName>camera_link</frameName>
+          <hackBaseline>0.07</hackBaseline>
+          <distortionK1>0.0</distortionK1>
+          <distortionK2>0.0</distortionK2>
+          <distortionK3>0.0</distortionK3>
+          <distortionT1>0.0</distortionT1>
+          <distortionT2>0.0</distortionT2>
+        </plugin>
+
+      </sensor>
+
+      <collision name='sonar_collision'>
+    	<pose>0 0.07 0.03 0 0 0</pose>
+    	<geometry>
+	  <box>
+	    <size>0.055 0.02 .023</size>
+	  </box>
+    	</geometry>
+      </collision>
+
+      <visual name='sonar_visual'>
+    	<pose>0 0.07 0.03 0 0 0</pose>
+    	<geometry>
+	  <box>
+	    <size>0.055 0.02 .023</size>
+	  </box>
+        </geometry>
+      </visual>
+
+      <sensor name="sonar" type="ray">
+	<pose>0 0.07 0.03 0 0 1.5707</pose>
+	<ray>
+	  <scan>
+	    <horizontal>
+	      <samples>100</samples>
+              <resolution>1</resolution>
+              <min_angle>-0.7854</min_angle>
+	      <max_angle>0.7854</max_angle>
+	    </horizontal>
+	  </scan>
+	  <range>
+            <min>0.029</min>
+            <max>2.55</max>
+            <resolution>0.1</resolution>
+          </range>
+	</ray>
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+        <visualize>true</visualize>
+
+	<plugin name="sonar_controller" filename="libgazebo_ros_sonar.so">
+          <robotNamespace>lego_robot</robotNamespace>
+	  <topicName>sonar</topicName>
+        </plugin>
+
+      </sensor>
+
+    </link>
+
+    <link name="gyro_sensor">
+      <collision name='gyro_collision'>
+    	<pose>0 -0.085 0.124 0 0 0</pose>
+    	<geometry>
+	  <box>
+	    <size>0.02 0.04 .02</size>
+	  </box>
+    	</geometry>
+      </collision>
+
+      <visual name='gyro_visual'>
+    	<pose>0 -0.085 0.124 0 0 0</pose>
+    	<geometry>
+	  <box>
+	    <size>0.02 0.04 .02</size>
+	  </box>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="touch_sensor">
+        <pose>-0.059 0.095 0.03 0 0 0</pose>
+        <inertial>
+            <inertia>
+                <ixx>0.01</ixx>
+                <ixy>0</ixy>
+                <ixz>0</ixz>
+                <iyy>0.01</iyy>
+                <iyz>0</iyz>
+                <izz>0.01</izz>
+            </inertia>
+            <mass>0.05</mass>
+        </inertial>
+        <collision name='touch_collision'>
+    	  <geometry>
+	    <box>
+	      <size>0.02 0.04 .02</size>
+	    </box>
+    	  </geometry>
+        </collision>
+
+      	<visual name='touch_visual'>
+    	  <geometry>
+	    <box>
+	      <size>0.02 0.04 .02</size>
+	    </box>
+          </geometry>
+        </visual>
+    </link>
+
+    <link name="palm">
+        <pose>-0.059 0.143 0.03 0 1.5707 1.5707</pose>
+        <inertial>
+            <inertia>
+                <ixx>0.01</ixx>
+                <ixy>0</ixy>
+                <ixz>0</ixz>
+                <iyy>0.01</iyy>
+                <iyz>0</iyz>
+                <izz>0.01</izz>
+            </inertia>
+            <mass>0.05</mass>
+        </inertial>
+        <collision name="collision">
+            <geometry>
+                <cylinder>
+                    <radius>.004</radius>
+            	    <length>.08</length>
+                </cylinder>
+            </geometry>
+        </collision>
+        <visual name="visual">
+            <geometry>
+                <cylinder>
+                    <radius>.004</radius>
+            	    <length>.08</length>
+                </cylinder>
+            </geometry>
+            <material>
+                <script>Gazebo/Red</script>
+            </material>
+        </visual>
+    </link>
+
+    <link name="left_wheel">
+      <pose>-0.059 0.032 0.028 0 1.5707 0</pose>
+      <collision name="collision">
+	<!--pose>-0.028 0 0 0 1.5707 0</pose-->
+        <geometry>
+	  <cylinder>
+            <radius>.028</radius>
+            <length>.029</length>
+          </cylinder>
+          <!--mesh>
+            <uri>model://lego_mindstorm/meshes/wheel.dae</uri>
+          </mesh-->
+        </geometry>
+	<surface>
+      	  <friction>
+	    <ode>
+  	      <mu>0.6</mu>
+	      <mu2>0.6</mu2>
+	    </ode>
+          </friction>
+    	</surface>
+      </collision>
+
+	<inertial>
+	 <mass>1</mass>
+	 <inertia>
+	 <ixx>0.00066</ixx>
+	 <iyy>0.00066</iyy>
+	 <izz>0.0005</izz>
+	 </inertia>
+	 </inertial>
+
+      <visual name="visual">
+	<pose>-0.028 0 0 0 1.5707 0</pose>
+        <geometry>
+	  <!--cylinder>
+            <radius>.028</radius>
+            <length>.029</length>
+          </cylinder-->
+          <mesh>
+            <uri>model://lego_mindstorm/meshes/wheel.dae</uri>
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+
+    <link name="right_wheel">
+      <pose>0.059 0.032 0.028 0 1.5707 0</pose>
+      <collision name="collision">
+	<!--pose>-0.028 0 0 0 1.5707 0</pose-->
+        <geometry>
+	  <cylinder>
+            <radius>.028</radius>
+            <length>.029</length>
+          </cylinder>
+          <!--mesh>
+            <uri>model://lego_mindstorm/meshes/wheel.dae</uri>
+          </mesh-->
+        </geometry>
+	<surface>
+      	  <friction>
+	    <ode>
+	      <mu>0.6</mu>
+	      <mu2>0.6</mu2>
+	    </ode>
+          </friction>
+    	</surface>
+	</collision>
+
+	<inertial>
+	 <mass>1</mass>
+	 <inertia>
+	 <ixx>0.00066</ixx>
+	 <iyy>0.00066</iyy>
+	 <izz>0.0005</izz>
+	 </inertia>
+	 </inertial>
+
+      <visual name="visual">
+	<pose>-0.028 0 0 0 1.5707 0</pose>
+        <geometry>
+	  <!--cylinder>
+            <radius>.028</radius>
+            <length>.029</length>
+          </cylinder-->
+          <mesh>
+            <uri>model://lego_mindstorm/meshes/wheel.dae</uri>
+	    
+          </mesh>
+        </geometry>
+      </visual>
+    </link>
+
+    <joint type="revolute" name="left_wheel_hinge">
+      <pose>0 0 -0.03 0 0 0</pose>
+      <child>left_wheel</child>
+      <parent>chassis</parent>
+      <axis>
+        <xyz>-1 0 0</xyz>
+      </axis>
+    </joint>
+
+    <joint type="revolute" name="right_wheel_hinge">
+      <pose>0 0 0.03 0 0 0</pose>
+      <child>right_wheel</child>
+      <parent>chassis</parent>
+      <axis>
+        <xyz>-1 0 0</xyz>
+      </axis>
+    </joint>
+
+    <joint type="revolute" name="gyro_hinge">
+      <pose>0 0 0 0 0 0</pose>
+      <child>gyro_sensor</child>
+      <parent>chassis</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+	<limit>
+          <upper>0</upper>
+          <lower>0</lower>
+    	</limit>
+      </axis>
+    </joint>
+
+    <joint name="palm_riser" type="prismatic">
+        <child>palm</child>
+        <parent>touch_sensor</parent>
+        <axis>
+            <limit>
+                <lower>0</lower>
+                <upper>0.004</upper>
+            </limit>
+            <xyz>0 1 0</xyz>
+        </axis>
+    </joint>
+
+    <joint type="revolute" name="touch_hinge">
+      <pose>0 0 0 0 0 0</pose>
+      <child>touch_sensor</child>
+      <parent>chassis</parent>
+      <axis>
+        <xyz>0 0 1</xyz>
+	<limit>
+          <upper>0</upper>
+          <lower>0</lower>
+    	</limit>
+      </axis>
+    </joint>
+    
+    <plugin name="right_wheel_controller" filename="libwheel_plugin.so">
+	<jointName>right_wheel_hinge</jointName>
+      	<commandTopic>cmd_vel_right</commandTopic>
+	<wheelDiameter>0.056</wheelDiameter>
+      	<drive>true</drive>
+    </plugin>
+    <plugin name="left_wheel_controller" filename="libwheel_plugin.so">
+	<jointName>left_wheel_hinge</jointName>
+      	<commandTopic>cmd_vel_left</commandTopic>
+	<wheelDiameter>0.056</wheelDiameter>
+      	<drive>true</drive>
+    </plugin>
+    <!--jointName>left_wheel_hinge</jointName-->
+
+    <plugin name="gyro_controller" filename="libgyro_plugin.so">
+	
+    </plugin>
+
+    <plugin name="touch_controller" filename="libtouch_plugin.so">
+	
+    </plugin>
+  </model>
+</sdf>
