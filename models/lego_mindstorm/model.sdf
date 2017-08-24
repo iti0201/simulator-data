@@ -5,12 +5,12 @@
     <link name='chassis'>
       <pose>0 0 0 0 0 0</pose>
       <inertial>
-        <mass>2</mass>
+        <mass>100</mass>
         <pose>0 0 0.05 0 0 0</pose>
         <inertia>
-          <ixx>0.003</ixx>
-          <iyy>0.003</iyy>
-          <izz>0.002</izz>
+          <ixx>0.3</ixx>
+          <iyy>0.3</iyy>
+          <izz>0.2</izz>
         </inertia>
       </inertial>
 
@@ -119,8 +119,11 @@
 
       </sensor>
 
+    </link>
+
+    <link name="sonar_sensor">
+      <pose>0 0.07 0.1455 0 0 0</pose>
       <collision name='sonar_collision'>
-    	<pose>0 0.07 0.03 0 0 0</pose>
     	<geometry>
 	  <box>
 	    <size>0.055 0.02 .023</size>
@@ -129,7 +132,6 @@
       </collision>
 
       <visual name='sonar_visual'>
-    	<pose>0 0.07 0.03 0 0 0</pose>
     	<geometry>
 	  <box>
 	    <size>0.055 0.02 .023</size>
@@ -138,7 +140,7 @@
       </visual>
 
       <sensor name="sonar" type="ray">
-	<pose>0 0.07 0.03 0 0 1.5707</pose>
+	<pose>0 0 0 0 0 1.5707</pose>
 	<ray>
 	  <scan>
 	    <horizontal>
@@ -164,7 +166,36 @@
         </plugin>
 
       </sensor>
+    </link>
 
+    <link name="sonar_wheel">
+      <pose>0 0.07 0.124 0 0 0</pose>
+      <collision name="collision">
+        <geometry>
+	  <cylinder>
+            <radius>.025</radius>
+            <length>.02</length>
+          </cylinder>
+        </geometry>
+      </collision>
+
+	<inertial>
+	 <mass>50</mass>
+	 <inertia>
+	 <ixx>0.066</ixx>
+	 <iyy>0.066</iyy>
+	 <izz>0.05</izz>
+	 </inertia>
+	 </inertial>
+
+      <visual name="visual">
+        <geometry>
+	  <cylinder>
+            <radius>.025</radius>
+            <length>.02</length>
+          </cylinder>
+        </geometry>
+      </visual>
     </link>
 
     <link name="gyro_sensor">
@@ -185,70 +216,6 @@
 	  </box>
         </geometry>
       </visual>
-    </link>
-
-    <link name="touch_sensor">
-        <pose>-0.059 0.095 0.03 0 0 0</pose>
-        <inertial>
-            <inertia>
-                <ixx>0.01</ixx>
-                <ixy>0</ixy>
-                <ixz>0</ixz>
-                <iyy>0.01</iyy>
-                <iyz>0</iyz>
-                <izz>0.01</izz>
-            </inertia>
-            <mass>0.05</mass>
-        </inertial>
-        <collision name='touch_collision'>
-    	  <geometry>
-	    <box>
-	      <size>0.02 0.04 .02</size>
-	    </box>
-    	  </geometry>
-        </collision>
-
-      	<visual name='touch_visual'>
-    	  <geometry>
-	    <box>
-	      <size>0.02 0.04 .02</size>
-	    </box>
-          </geometry>
-        </visual>
-    </link>
-
-    <link name="palm">
-        <pose>-0.059 0.143 0.03 0 1.5707 1.5707</pose>
-        <inertial>
-            <inertia>
-                <ixx>0.01</ixx>
-                <ixy>0</ixy>
-                <ixz>0</ixz>
-                <iyy>0.01</iyy>
-                <iyz>0</iyz>
-                <izz>0.01</izz>
-            </inertia>
-            <mass>0.05</mass>
-        </inertial>
-        <collision name="collision">
-            <geometry>
-                <cylinder>
-                    <radius>.004</radius>
-            	    <length>.08</length>
-                </cylinder>
-            </geometry>
-        </collision>
-        <visual name="visual">
-            <geometry>
-                <cylinder>
-                    <radius>.004</radius>
-            	    <length>.08</length>
-                </cylinder>
-            </geometry>
-            <material>
-                <script>Gazebo/Red</script>
-            </material>
-        </visual>
     </link>
 
     <link name="left_wheel">
@@ -275,11 +242,11 @@
       </collision>
 
 	<inertial>
-	 <mass>1</mass>
+	 <mass>50</mass>
 	 <inertia>
-	 <ixx>0.00066</ixx>
-	 <iyy>0.00066</iyy>
-	 <izz>0.0005</izz>
+	 <ixx>0.066</ixx>
+	 <iyy>0.066</iyy>
+	 <izz>0.05</izz>
 	 </inertia>
 	 </inertial>
 
@@ -321,11 +288,11 @@
 	</collision>
 
 	<inertial>
-	 <mass>1</mass>
+	 <mass>50</mass>
 	 <inertia>
-	 <ixx>0.00066</ixx>
-	 <iyy>0.00066</iyy>
-	 <izz>0.0005</izz>
+	 <ixx>0.066</ixx>
+	 <iyy>0.066</iyy>
+	 <izz>0.05</izz>
 	 </inertia>
 	 </inertial>
 
@@ -375,24 +342,25 @@
       </axis>
     </joint>
 
-    <joint name="palm_riser" type="prismatic">
-        <child>palm</child>
-        <parent>touch_sensor</parent>
-        <axis>
-            <limit>
-                <lower>0</lower>
-                <upper>0.004</upper>
-            </limit>
-            <xyz>0 1 0</xyz>
-        </axis>
-    </joint>
-
-    <joint type="revolute" name="touch_hinge">
+    <joint type="revolute" name="sonar_wheel_hinge">
       <pose>0 0 0 0 0 0</pose>
-      <child>touch_sensor</child>
+      <child>sonar_wheel</child>
       <parent>chassis</parent>
       <axis>
         <xyz>0 0 1</xyz>
+	<limit>
+          <upper>2.3562</upper>
+          <lower>-2.3562</lower>
+    	</limit>
+      </axis>
+    </joint>
+
+    <joint type="revolute" name="sonar_hinge">
+      <pose>0 0 0 0 0 0</pose>
+      <child>sonar_sensor</child>
+      <parent>sonar_wheel</parent>
+      <axis>
+        <xyz>1 0 0</xyz>
 	<limit>
           <upper>0</upper>
           <lower>0</lower>
@@ -418,8 +386,5 @@
 	
     </plugin>
 
-    <plugin name="touch_controller" filename="libtouch_plugin.so">
-	
-    </plugin>
   </model>
 </sdf>

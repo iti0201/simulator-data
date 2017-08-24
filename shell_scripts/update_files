@@ -1,0 +1,43 @@
+#!/bin/bash
+
+cd /home/robot
+
+DIRECTORY="simulator"
+git_address="https://github.com/iti0201/$DIRECTORY.git"
+
+if [ -d "$DIRECTORY" ]; then
+    echo "Repository already exists. Updating.."
+    cd $DIRECTORY
+    git pull
+else
+    echo "Repository doesn't exist yet. Creating one now..."
+    git clone $git_address
+    cd $DIRECTORY
+fi
+
+real_address=`cat config.txt`
+
+real_directory=$(echo $real_address | rev | cut -d'/' -f 1 | rev | cut -d'.' -f 1)
+cd /home/robot
+if [ -d "$real_directory" ]; then
+    echo "Repository already exists. Updating.."
+    cd $real_directory
+    git pull
+else
+    echo "Repository doesn't exist yet. Creating one now..."
+    git clone $real_address
+    cd $real_directory
+fi
+
+cd /home/student
+if [ -d "$real_directory" ]; then
+    echo "Repository already exists. Updating.."
+    cd $real_directory
+    git pull
+else
+    echo "Repository doesn't exist yet. Creating one now..."
+    git clone $real_address
+    cd $real_directory
+fi
+
+copy_shell
