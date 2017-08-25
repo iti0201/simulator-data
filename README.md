@@ -1,3 +1,3 @@
-Hello
+Hello.
 
-You're gonna be making stuff here. Good luck. A lot of luck.
+You're gonna be making some stuff here. Good luck.
