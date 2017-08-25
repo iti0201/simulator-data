@@ -1069,7 +1069,7 @@ class MediumMotor(Motor):
         self._commands = ['run-forever', 'run-to-abs-pos', 'run-to-rel-pos', 'run_timed', 'run-direct', 'stop', 'reset']
         self._count_per_rot = 360
         # self._count_per_m = None  #
-        self._driver_name = 'lego-ev3-l-motor'
+        self._driver_name = 'lego-ev3-m-motor'
         self._duty_cycle = 0
         self._duty_cycle_sp = 0
         # self._full_travel_count = None  #
@@ -1101,6 +1101,53 @@ class MediumMotor(Motor):
 
         # ~autogen
     ]
+
+    def run_to_abs_pos(self, **kwargs):
+        """Run to an absolute position specified by `position_sp` and then
+        stop using the action specified in `stop_action`.
+        """
+        if 'position_sp' in kwargs:
+            self.position_sp = kwargs['position_sp']
+        if 'speed_sp' in kwargs:
+            self.speed_sp = kwargs['speed_sp']
+        self._motor.set_duty_cycle_sp(self._position_sp)
+        t = threading.Thread(target=self._motor.talker_abs_pos, args=(self.position_sp, self.speed_sp))
+        if len(self._threads) > 0:
+            self._threads = []
+        self._threads.append(t)
+        self._motor.activate_thread()
+        t.start()
+
+    def reset(self, **kwargs):
+        """Reset all of the motor parameter attributes to their default value.
+        This will also have the effect of stopping the motor.
+        """
+        self._commands = ['run-forever', 'run-to-abs-pos', 'run-to-rel-pos', 'run_timed', 'run-direct', 'stop', 'reset']
+        self._count_per_rot = 360
+        self._driver_name = 'lego-ev3-m-motor'
+        self._duty_cycle = 0
+        self._duty_cycle_sp = 0
+        self._polarity = 'normal'
+        self._position = 0
+        self._position_p = 80000
+        self._position_i = 0
+        self._position_d = 0
+        self._position_sp = 0
+        self._max_speed = 1050
+        self._speed = 0
+        self._speed_sp = 0
+        self._ramp_up_sp = 0
+        self._ramp_down_sp = 0
+        self._speed_p = 1000
+        self._speed_i = 60
+        self._speed_d = 0
+        self._state = []
+        self._stop_action = 'coast'
+        self._stop_actions = ['coast', 'brake', 'hold']
+        self._time_sp = 0
+
+        self._motor.stop_thread()
+        self._threads = []
 
 
 # ~autogen generic-class classes.actuonix50Motor>currentClass

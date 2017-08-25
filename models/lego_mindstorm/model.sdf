@@ -360,7 +360,7 @@
       <child>sonar_sensor</child>
       <parent>sonar_wheel</parent>
       <axis>
-        <xyz>1 0 0</xyz>
+        <xyz>0 0 1</xyz>
 	<limit>
           <upper>0</upper>
           <lower>0</lower>
@@ -379,6 +379,10 @@
       	<commandTopic>cmd_vel_left</commandTopic>
 	<wheelDiameter>0.056</wheelDiameter>
       	<drive>true</drive>
+    </plugin>
+
+    <plugin name="sonar_wheel_controller" filename="libsonar_wheel_plugin.so">
+	
     </plugin>
     <!--jointName>left_wheel_hinge</jointName-->
 

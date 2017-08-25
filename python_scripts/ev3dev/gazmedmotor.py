@@ -2,6 +2,7 @@ import rospy
 import geometry_msgs.msg
 import time
 from geometry_msgs.msg import Twist
+from geometry_msgs.msg import Pose
 import math
 
 
@@ -14,83 +15,13 @@ class GazMedMotor:
         self.clear = True
         self.motor_counter = 0
 
-    def talker_timed(self, kwargs):
-        self.motor_counter += 1
-        current_counter = self.motor_counter
-        pub = rospy.Publisher('lego_robot/cmd_vel_med', Twist, queue_size=10)
-
-        publishFrequency = 60
-        rate = rospy.Rate(publishFrequency)  # 60hz
-        counter = 0
-
-        t_end = time.time() + kwargs['time_sp'] / 1000
-
-        while not rospy.is_shutdown() and not self.stopped and time.time() < t_end:
-            if self.motor_counter != current_counter:
-                return
-            # print(counter)
-            twist = Twist()
-            angular = geometry_msgs.msg.Vector3()
-            linear = geometry_msgs.msg.Vector3()
-
-            angular.x = math.radians(kwargs['speed_sp'])
-            # angular.x = kwargs['speed_sp'] * math.pi / 180
-
-            counter += 1
-
-            twist.angular = angular
-            twist.linear = linear
-
-            # rospy.loginfo(twist)
-            pub.publish(twist)
-
-            rate.sleep()
-
-        self.coast(pub, math.radians(kwargs['speed_sp']))
-
-    def talker_direct(self):
-        self.motor_counter += 1
-        current_counter = self.motor_counter
-        pub = rospy.Publisher('lego_robot/cmd_vel_med', Twist, queue_size=10)
-
-        max_speed = 800
-        # running the robot at duty_cycle_sp of 100 gave me a speed of 880 something in the air
-        # running on the ground it got like 800
-
-        publishFrequency = 60
-        rate = rospy.Rate(publishFrequency)  # 60hz
-        counter = 0
-
-        while not rospy.is_shutdown() and not self.stopped:
-            if self.motor_counter != current_counter:
-                return
-            # print(counter)
-            twist = Twist()
-            angular = geometry_msgs.msg.Vector3()
-            linear = geometry_msgs.msg.Vector3()
-
-            angular.x = math.radians(max_speed * self.duty_cycle_sp / 100)
-            # angular.x = kwargs['speed_sp'] * math.pi / 180
-
-            counter += 1
-
-            twist.angular = angular
-            twist.linear = linear
-
-            # rospy.loginfo(twist)
-            pub.publish(twist)
-
-            rate.sleep()
-
-        self.coast(pub, math.radians(max_speed * self.duty_cycle_sp / 100))
-
-    def talker_forever(self, kwargs):
+    def talker_abs_pos(self, position_sp, speed):
         self.motor_counter += 1
         current_counter = self.motor_counter
 
-        pub = rospy.Publisher('lego_robot/cmd_vel_med', Twist, queue_size=10)
+        pub = rospy.Publisher('lego_robot/sonar_wheel_pose', Pose, queue_size=10)
 
-        publishFrequency = 60
+        publishFrequency = 25
         rate = rospy.Rate(publishFrequency)  # 60hz
         counter = 0
 
@@ -98,48 +29,20 @@ class GazMedMotor:
             if self.motor_counter != current_counter:
                 return
             # print(counter, self.motor_counter)
-            twist = Twist()
-            angular = geometry_msgs.msg.Vector3()
-            linear = geometry_msgs.msg.Vector3()
-            angular.x = math.radians(kwargs['speed_sp'])
+            pose = Pose()
+            position = geometry_msgs.msg.Vector3()
+            # rotation = geometry_msgs.msg.Quaternion()
+            position.x = math.radians(speed)
+            # tf.transformations.quaternion_from_euler(0, 0, kwargs['position_sp'])
+
             counter += 1
-            twist.angular = angular
-            twist.linear = linear
-            # rospy.loginfo(twist)
-            pub.publish(twist)
+            pose.position = position
+            orientation = geometry_msgs.msg.Quaternion()
+            orientation.z = -math.radians(position_sp)
+            pose.orientation = orientation
+            rospy.loginfo(pose)
+            pub.publish(pose)
             rate.sleep()
-
-        self.coast(pub, math.radians(kwargs['speed_sp']))
-
-    def coast(self, pub, currentSpeed):
-        '''
-        The idea of this function is to simulate coasting.
-        I've set it so that on coasting, the turning thingie slows down 0.5 radians ever 0.1 seconds.
-        So that's 5 radians per second.
-        '''
-        coastStep = 0.5
-        totalSteps = int(math.floor(currentSpeed / coastStep))
-        current_counter = self.motor_counter
-        for i in range(0, totalSteps):
-            if self.motor_counter != current_counter:
-                return
-            if i == totalSteps - 1:
-                currentSpeed = 0
-            else:
-                currentSpeed -= coastStep
-
-            twist = Twist()
-            angular = geometry_msgs.msg.Vector3()
-            linear = geometry_msgs.msg.Vector3()
-
-            angular.x = currentSpeed
-
-            twist.angular = angular
-            twist.linear = linear
-
-            # rospy.loginfo(twist)
-            pub.publish(twist)
-            time.sleep(0.1)
 
     def activate_thread(self):
 
