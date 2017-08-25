@@ -40,7 +40,7 @@ class GazMedMotor:
             orientation = geometry_msgs.msg.Quaternion()
             orientation.z = -math.radians(position_sp)
             pose.orientation = orientation
-            rospy.loginfo(pose)
+            # rospy.loginfo(pose)
             pub.publish(pose)
             rate.sleep()
 
