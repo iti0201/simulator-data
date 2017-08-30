@@ -1075,11 +1075,11 @@ class MediumMotor(Motor):
         # self._full_travel_count = None  #
         self._polarity = 'normal'
         self._position = 0
-        self._position_p = 80000
+        self._position_p = 160000
         self._position_i = 0
         self._position_d = 0
         self._position_sp = 0
-        self._max_speed = 1050
+        self._max_speed = 1560
         self._speed = 0
         self._speed_sp = 0
         self._ramp_up_sp = 0
@@ -1129,11 +1129,11 @@ class MediumMotor(Motor):
         self._duty_cycle_sp = 0
         self._polarity = 'normal'
         self._position = 0
-        self._position_p = 80000
+        self._position_p = 160000
         self._position_i = 0
         self._position_d = 0
         self._position_sp = 0
-        self._max_speed = 1050
+        self._max_speed = 1560
         self._speed = 0
         self._speed_sp = 0
         self._ramp_up_sp = 0
