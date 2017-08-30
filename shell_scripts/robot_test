@@ -41,7 +41,7 @@ if ! [ -f "robot.py" ]; then
     exit 1
 fi
 
-x-terminal-emulator -e roslaunch lego_gazebo lego.launch dir:=$exercise_number map:=$map_number
+x-terminal-emulator -e roslaunch lego_gazebo lego.launch dir:=${exercise_number:0:1} map:=$map_number
 
 x-terminal-emulator script_launch
 
