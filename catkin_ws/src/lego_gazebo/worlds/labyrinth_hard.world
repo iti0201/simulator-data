@@ -14,7 +14,7 @@
     <include>
       <uri>model://lego_mindstorm</uri>
       <name>lego_robot</name>
-      <pose>3.31 0.31 0 0 0 0</pose> <!-- this is the robot's starting position, if you know where it should be, you can change this -->
+      <pose>3.31 0.31 0 0 0 1.5707963268</pose> <!-- this is the robot's starting position, if you know where it should be, you can change this -->
     </include>
 
     <model name='labyrinth_hard'>
