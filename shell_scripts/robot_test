@@ -43,6 +43,6 @@ fi
 
 x-terminal-emulator -e roslaunch lego_gazebo lego.launch dir:=${exercise_number:0:1} map:=$map_number
 
-x-terminal-emulator script_launch
+x-terminal-emulator -e script_launch
 
 #roslaunch lego_gazebo lego_$exercise_name.launch
