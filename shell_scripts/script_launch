@@ -3,8 +3,8 @@
 echo ".."
 echo ".."
 echo ".."
-sleep 20s
+sleep 20s # waiting time to get ready; 
 
-cd $1 # waiting time to get ready
+cd $1 
 
 python3 "robot.py"
