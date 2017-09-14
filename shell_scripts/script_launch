@@ -5,6 +5,6 @@ echo ".."
 echo ".."
 sleep 20s
 
-cd $1
+cd $1 # waiting time to get ready
 
 python3 "robot.py"
