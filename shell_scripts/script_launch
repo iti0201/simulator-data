@@ -3,6 +3,6 @@
 echo ".."
 echo ".."
 echo ".."
-sleep 10s # It is not crucial to have the waiting time but just so the student has time to get ready to watch
+sleep 20s # It is not crucial to have the waiting time but just so the student has time to get ready to watch
 
 python3 "robot.py"
