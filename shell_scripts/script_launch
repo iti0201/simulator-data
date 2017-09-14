@@ -5,4 +5,6 @@ echo ".."
 echo ".."
 sleep 10s # It is not crucial to have the waiting time but just so the student has time to get ready to watch
 
+cd $1
+
 python3 "robot.py"
