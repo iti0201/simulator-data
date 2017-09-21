@@ -1,4 +1,4 @@
-material MyGroundPlane/Image
+material RaceTrack3/track3
     {
       technique
       {
