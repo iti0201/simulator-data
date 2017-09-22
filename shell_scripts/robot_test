@@ -12,7 +12,7 @@ git_user_name=$1
 exercise_number=$2
 map_number=$3
 
-git_address="https://gitlab.cs.ttu.ee/$git_user_name/$DIRECTORY.git"
+git_address="https://$git_user_name@gitlab.cs.ttu.ee/$git_user_name/$DIRECTORY.git"
 
 echo $git_address
 
