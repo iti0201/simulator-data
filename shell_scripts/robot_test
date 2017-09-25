@@ -5,7 +5,7 @@ DIRECTORY="iti0201"
 
 if [ "$#" -lt 3 ]; then
     echo "USAGE: robot_test [uni-id] [exercise_number] [map_number]"
-    echo "You can also add optional arguments of [sonar_noise] and [gyro_noise]
+    echo "You can also add optional arguments of [sonar_noise] and [gyro_noise]"
     exit 0
 fi
 
@@ -54,10 +54,7 @@ if ! [ -f "robot.py" ]; then
     exit 1
 fi
 
-x-terminal-emulator -e roslaunch lego_gazebo lego.launch dir:=$exercise_number map:=$map_number
-
-rosparam set sonar_noise $sonar_noise
-rosparam set gyro_noise $gyro_noise
+x-terminal-emulator -e roslaunch lego_gazebo lego.launch dir:=$exercise_number map:=$map_number sonar_noise:=$sonar_noise gyro_noise:=$gyro_noise
 
 x-terminal-emulator -e script_launch $DIRECTORY/$exercise_number
 
