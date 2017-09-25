@@ -2,7 +2,7 @@ from __future__ import division
 
 import numpy
 
-
+from random import uniform
 import rospy
 import time
 import math
@@ -52,6 +52,9 @@ class GazGyro:
             if self.initial_yaw is None:
                 return yaw
             else:
+                noise_param = rospy.get_param('gyro_noise', 0.05)
+
+                old_total = self.total_yaw
                 if yaw - self.current_yaw < -270:
                     self.total_yaw += 360 + yaw - self.current_yaw
                 elif yaw - self.current_yaw > 270:
@@ -59,6 +62,8 @@ class GazGyro:
                 else:
                     self.total_yaw += yaw - self.current_yaw
                 self.current_yaw = yaw
+                if math.fabs(old_total - self.total_yaw) > 0.1:
+                    self.total_yaw += uniform(-3, 3) * noise_param
                 return self.total_yaw
         else:
             return 0 # the problem here is that if you ask the yaw immediately after initialising the sensor, it won't have enough time to fetch the data
