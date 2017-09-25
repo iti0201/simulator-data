@@ -14,15 +14,15 @@ exercise_number=$2
 map_number=$3
 
 if [ -z "$4" ]; then
-    sonar_noise=$4
-else
     sonar_noise=0
+else
+    sonar_noise=$4
 fi
 
 if [ -z "$5" ]; then
-    gyro_noise=$5
-else
     gyro_noise=0
+else
+    gyro_noise=$5
 fi
 
 git_address="https://$git_user_name@gitlab.cs.ttu.ee/$git_user_name/$DIRECTORY.git"
