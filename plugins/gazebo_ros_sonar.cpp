@@ -34,6 +34,7 @@
 #include <limits>
 
 #include <gazebo/gazebo_config.h>
+#include <cstdlib>
 
 namespace gazebo {
 
@@ -173,6 +174,15 @@ void GazeboRosSonar::Update()
     range_.range = sensor_model_(range_.range, dt);
     if (range_.range < range_.min_range) range_.range = range_.min_range;
     if (range_.range > range_.max_range) range_.range = range_.max_range;
+  }
+
+  ros::NodeHandle nh;
+  double noise_param;
+  nh.param<double>("sonar_noise", noise_param, 0.05);
+
+  int r = rand() % 100 + 1;
+  if (r < noise_param * 100) {
+      range_.range = (rand() % (int) ((range_.max_range - range_.min_range) * 100) + range_.min_range * 100) / 100;
   }
 
   publisher_.publish(range_);

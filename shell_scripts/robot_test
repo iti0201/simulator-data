@@ -3,14 +3,27 @@
 cd ~
 DIRECTORY="iti0201"
 
-if [ "$#" != 3 ]; then
+if [ "$#" -lt 3 ]; then
     echo "USAGE: robot_test [uni-id] [exercise_number] [map_number]"
+    echo "You can also add optional arguments of [sonar_noise] and [gyro_noise]
     exit 0
 fi
 
 git_user_name=$1
 exercise_number=$2
 map_number=$3
+
+if [ -z "$4" ]; then
+    sonar_noise=$4
+else
+    sonar_noise=0
+fi
+
+if [ -z "$5" ]; then
+    gyro_noise=$5
+else
+    gyro_noise=0
+fi
 
 git_address="https://$git_user_name@gitlab.cs.ttu.ee/$git_user_name/$DIRECTORY.git"
 
@@ -42,6 +55,9 @@ if ! [ -f "robot.py" ]; then
 fi
 
 x-terminal-emulator -e roslaunch lego_gazebo lego.launch dir:=$exercise_number map:=$map_number
+
+rosparam set sonar_noise $sonar_noise
+rosparam set gyro_noise $gyro_noise
 
 x-terminal-emulator -e script_launch $DIRECTORY/$exercise_number
 
