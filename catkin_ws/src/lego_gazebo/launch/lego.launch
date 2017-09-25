@@ -4,8 +4,8 @@
   <arg name="map" />
   <arg name="sonar_noise" default="0" />
   <arg name="gyro_noise" default="0" />
-  <param param="sonar_noise" value="$(arg sonar_noise)" />
-  <param param="gyro_noise" value="$(arg gyro_noise)" />
+  <param name="sonar_noise" value="$(arg sonar_noise)" />
+  <param name="gyro_noise" value="$(arg gyro_noise)" />
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find lego_gazebo)/worlds/$(arg dir)/$(arg map).world"/>
     <!-- more default parameters can be changed here -->
