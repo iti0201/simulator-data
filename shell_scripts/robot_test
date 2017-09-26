@@ -25,6 +25,12 @@ else
     gyro_noise=$5
 fi
 
+if [ -z "$6" ]; then
+    waiting_time=0
+else
+    waiting_time=$6
+fi
+
 git_address="https://$git_user_name@gitlab.cs.ttu.ee/$git_user_name/$DIRECTORY.git"
 
 echo $git_address
@@ -56,6 +62,6 @@ fi
 
 x-terminal-emulator -e roslaunch lego_gazebo lego.launch dir:=$exercise_number map:=$map_number sonar_noise:=$sonar_noise gyro_noise:=$gyro_noise
 
-x-terminal-emulator -e script_launch $DIRECTORY/$exercise_number
+x-terminal-emulator -e script_launch $DIRECTORY/$exercise_number $waiting_time
 
 #roslaunch lego_gazebo lego_$exercise_name.launch

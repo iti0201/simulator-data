@@ -4,7 +4,7 @@ echo ".."
 echo ".."
 echo ".."
 echo $1
-sleep 20s # waiting time to get ready; 
+sleep $2s # waiting time to get ready; 
 
 cd $1 
 
