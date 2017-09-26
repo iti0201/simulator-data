@@ -5,7 +5,7 @@ DIRECTORY="iti0201"
 
 if [ "$#" -lt 3 ]; then
     echo "USAGE: robot_test [uni-id] [exercise_number] [map_number]"
-    echo "You can also add optional arguments of [sonar_noise] and [gyro_noise]"
+    echo "You can also add optional arguments of [sonar_noise], [gyro_noise] and [wait_time]"
     exit 0
 fi
 
