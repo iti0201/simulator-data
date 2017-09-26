@@ -35,6 +35,8 @@ git_address="https://$git_user_name@gitlab.cs.ttu.ee/$git_user_name/$DIRECTORY.g
 
 echo $git_address
 
+rm -rf $DIRECTORY # Temporary hack, will be fixed soon
+
 if [ -d "$DIRECTORY" ]; then
     echo "Repository already exists. Updating.."
     cd $DIRECTORY
