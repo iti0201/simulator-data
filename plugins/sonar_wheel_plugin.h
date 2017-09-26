@@ -98,6 +98,7 @@ namespace gazebo {
         void cmdVelCallback(const geometry_msgs::Pose::ConstPtr &cmd_msg);
 
         double speed_;
+        double rotation_speed_;
         double goal_;
         bool alive_;
 

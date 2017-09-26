@@ -7,7 +7,11 @@ import time
 
 print('bonjour')
 
-m = ev3.MediumMotor('outA')
+m = ev3.MediumMotor('outB')
 
-m.speed_sp = 100
-m.run_to_abs_pos(position_sp=-135)
+m.speed_sp = 200
+m.run_to_abs_pos(position_sp=0)
+
+print('done it!')
+
+

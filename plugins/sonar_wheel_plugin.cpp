@@ -42,6 +42,7 @@ namespace gazebo {
         speed_ = 0;
         goal_ = 0;
         alive_ = true;
+        rotation_speed_ = 0;
 
         joint_state_publisher_ = gazebo_ros_->node()->advertise<sensor_msgs::JointState>("sonar_joint_states", 1000);
 
@@ -70,6 +71,7 @@ namespace gazebo {
         pose_encoder_.theta = 0;
         speed_ = 0;
         goal_ = 0;
+        rotation_speed_ = 0;
     }
 
     void SonarWheelMove::publishWheelJointState() {
@@ -100,21 +102,32 @@ namespace gazebo {
             last_update_time_ += common::Time(update_period_);
 
             double currentYaw = joint_->GetWorldPose().rot.GetAsEuler().z - parent->GetWorldPose().rot.GetAsEuler().z;
-
-//            ROS_INFO("yaw goal is: %4f", wheel_angular_goal_);
+            if (currentYaw > 3.14) {
+                currentYaw -= 6.28;
+            } else if (currentYaw < -3.14) {
+                currentYaw += 6.28;
+            }
+            if (wheel_angular_goal_ > 2.356) {
+                wheel_angular_goal_ = 2.356;
+            } else if (wheel_angular_goal_ < -2.356) {
+                wheel_angular_goal_ = -2.356;
+            }
+            //ROS_INFO("current yaw is: %4f", currentYaw);
             double yawDelta = wheel_angular_goal_ - currentYaw;
-//            ROS_INFO("yaw delta is: %4f", yawDelta);
-
-            double potential_distance = wheel_speed_ * seconds_since_last_update * yawDelta / fabs(yawDelta);
-//            ROS_INFO("potential_distance is: %4f", potential_distance);
-
+            
+            double potential_distance = 0;
+            
+            potential_distance = ((wheel_speed_ + 0.1) * yawDelta / fabs(yawDelta) + rotation_speed_) * seconds_since_last_update;
+            if (wheel_speed_ == 0) {
+                potential_distance += 1;
+            }
+            
             double new_yaw = currentYaw + potential_distance;
 
             if (fabs(yawDelta) < fabs(potential_distance)) {
                 new_yaw = wheel_angular_goal_;
             }
-//            ROS_INFO("new yaw is: %4f", new_yaw);
-            //joint_->SetVelocity (0, wheel_speed_);
+
             joint_->SetPosition(0, new_yaw);
         }
     }
@@ -140,6 +153,7 @@ namespace gazebo {
         speed_ = cmd_msg->position.x;
 
         goal_ = cmd_msg->orientation.z;
+        rotation_speed_ = cmd_msg->position.y;
     }
 
     void SonarWheelMove::QueueThread() {

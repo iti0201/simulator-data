@@ -119,7 +119,7 @@ class GazMotor:
         So that's 5 radians per second.
         '''
         coastStep = 0.5
-        totalSteps = int(math.floor(currentSpeed / coastStep))
+        totalSteps = int(math.floor(math.fabs(currentSpeed) / coastStep))
         current_counter = self.motor_counter
         for i in range(0, totalSteps):
             if self.motor_counter != current_counter:
@@ -127,7 +127,10 @@ class GazMotor:
             if i == totalSteps - 1:
                 currentSpeed = 0
             else:
-                currentSpeed -= coastStep
+                if currentSpeed > 0:
+                    currentSpeed -= coastStep
+                else:
+                    currentSpeed += coastStep
 
             twist = Twist()
             angular = geometry_msgs.msg.Vector3()

@@ -5,16 +5,12 @@ import ev3dev.ev3 as ev3
 import rospy
 import time
 
-m = ev3.LargeMotor('outA')
-c = ev3.GyroSensor('In1')
+ev3.LargeMotor('outA').run_timed(speed_sp=400, time_sp=4000)
 
-m.speed_sp = 360
+gyro = ev3.GyroSensor('In3')
 
-m.run_forever()
+for i in range(10):
+    stuff = gyro.rate_and_angle
+    print('Gyro angle = {}, Gyro rate = {}'.format(stuff[0], stuff[1]))
 
-while True:
-    print(c.rate)
     time.sleep(1)
-    
-
-m.stop()

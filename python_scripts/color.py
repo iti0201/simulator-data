@@ -8,7 +8,6 @@ import time
 
 c = ev3.ColorSensor('in3')
 
-while True:
-    print(c.ambient_light_intensity)
+print(c.value)
 
 
