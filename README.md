@@ -1,3 +1,3 @@
 Hello.
 
-You're gonna be making some stuff here. Good luck.
+You're gonna be making some stuff for the simulator here. Good luck.
