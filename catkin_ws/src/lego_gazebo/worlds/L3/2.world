@@ -14,7 +14,7 @@
     <include>
       <uri>model://lego_mindstorm</uri>
       <name>lego_robot</name>
-      <pose>0.14 -0.80 0 0 0 0</pose>
+      <pose>0.1855 -0.80 0 0 0 0</pose>
     </include>
     <include>
       <uri>model://racetrack10</uri>
