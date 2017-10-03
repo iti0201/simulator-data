@@ -24,6 +24,13 @@ class GazMotor:
         rate = rospy.Rate(publishFrequency)  # 60hz
         counter = 0
 
+        max_speed = 1050
+        speed_sp = kwargs['speed_sp']
+        if (speed_sp > max_speed):
+            speed_sp = max_speed
+        elif (speed_sp < -max_speed):
+            speed_sp = -max_speed
+
         t_end = time.time() + kwargs['time_sp'] / 1000
 
         while not rospy.is_shutdown() and not self.stopped and time.time() < t_end:
@@ -34,7 +41,7 @@ class GazMotor:
             angular = geometry_msgs.msg.Vector3()
             linear = geometry_msgs.msg.Vector3()
 
-            angular.x = math.radians(kwargs['speed_sp'])
+            angular.x = math.radians(speed_sp)
             # angular.x = kwargs['speed_sp'] * math.pi / 180
 
             counter += 1
@@ -47,7 +54,7 @@ class GazMotor:
 
             rate.sleep()
 
-        self.coast(pub, math.radians(kwargs['speed_sp']))
+        self.coast(pub, math.radians(speed_sp))
 
     def talker_direct(self):
         self.motor_counter += 1
@@ -94,6 +101,13 @@ class GazMotor:
         publishFrequency = 60
         rate = rospy.Rate(publishFrequency)  # 60hz
         counter = 0
+
+        max_speed = 1050
+        speed_sp = kwargs['speed_sp']
+        if (speed_sp > max_speed):
+            speed_sp = max_speed
+        elif (speed_sp < -max_speed):
+            speed_sp = -max_speed
 
         while not rospy.is_shutdown() and not self.stopped:
             if self.motor_counter != current_counter:
