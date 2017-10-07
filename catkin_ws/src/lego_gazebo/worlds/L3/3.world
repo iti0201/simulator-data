@@ -14,17 +14,17 @@
     <include>
       <uri>model://lego_mindstorm</uri>
       <name>lego_robot</name>
-      <pose>0.194 -0.80 0 0 0 0</pose>
+      <pose>-0.20 -0.506 0 0 0 5.3407075111</pose>
     </include>
     <include>
-      <uri>model://racetrack10</uri>
-      <name>race_track10</name>
+      <uri>model://racetrack13</uri>
+      <name>race_track13</name>
       <pose>0 0 0 0 0 0</pose>
     </include>
 
 
     <model name='obstacle1'>
-    <pose frame=''>0.14 -0.55 0 0 -0 0</pose>
+    <pose frame=''>0.06 -0.32 0 0 0 5.3407075111</pose>
     <link name='Wall_0'>
       <collision name='Wall_0_Collision'>
         <geometry>
@@ -59,7 +59,7 @@
 
 
     <model name='obstacle2'>
-    <pose frame=''>0.0225 -0.03 0 0 -0 1.5707963268</pose>
+    <pose frame=''>0.0225 0.08 0 0 -0 1.1868238914</pose>
     <link name='Wall_0'>
       <collision name='Wall_0_Collision'>
         <geometry>
