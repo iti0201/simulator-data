@@ -1,0 +1,96 @@
+<?xml version="1.0" ?>
+<sdf version="1.4">
+  <world name="default">
+    <scene>
+      <ambient>0.5 0.5 0.5 1.0</ambient>
+      <shadows>0</shadows>
+    </scene>
+    <include>
+      <uri>model://ground_plane</uri>
+    </include>
+    <include>
+      <uri>model://sun</uri>
+    </include>
+    <include>
+      <uri>model://lego_mindstorm</uri>
+      <name>lego_robot</name>
+      <pose>-0.20 -0.506 0 0 0 5.3407075111</pose>
+    </include>
+    <include>
+      <uri>model://racetrack13</uri>
+      <name>race_track13</name>
+      <pose>0 0 0 0 0 0</pose>
+    </include>
+
+
+    <model name='obstacle1'>
+    <pose frame=''>0.06 -0.32 0 0 0 5.3407075111</pose>
+    <link name='Wall_0'>
+      <collision name='Wall_0_Collision'>
+        <geometry>
+          <box>
+            <size>0.195 0.06 0.25</size>
+          </box>
+        </geometry>
+        <pose frame=''>0 0 0.125 0 -0 0</pose>
+      </collision>
+      <visual name='Wall_0_Visual'>
+        <pose frame=''>0 0 0.125 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.195 0.06 0.25</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+          <ambient>0.435294 0.796078 0.67451 1</ambient>
+        </material>
+        <meta>
+          <layer>0</layer>
+        </meta>
+      </visual>
+      <pose frame=''>0 0 0 0 -0 0</pose>
+    </link>
+    <static>1</static>
+  </model>
+
+
+    <model name='obstacle2'>
+    <pose frame=''>0.0225 0.08 0 0 -0 1.1868238914</pose>
+    <link name='Wall_0'>
+      <collision name='Wall_0_Collision'>
+        <geometry>
+          <box>
+            <size>0.195 0.1 0.25</size>
+          </box>
+        </geometry>
+        <pose frame=''>0 0 0.125 0 -0 0</pose>
+      </collision>
+      <visual name='Wall_0_Visual'>
+        <pose frame=''>0 0 0.125 0 -0 0</pose>
+        <geometry>
+          <box>
+            <size>0.195 0.1 0.25</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <uri>file://media/materials/scripts/gazebo.material</uri>
+            <name>Gazebo/Grey</name>
+          </script>
+          <ambient>0.435294 0.796078 0.67451 1</ambient>
+        </material>
+        <meta>
+          <layer>0</layer>
+        </meta>
+      </visual>
+      <pose frame=''>0 0 0 0 -0 0</pose>
+    </link>
+    <static>1</static>
+  </model>
+    
+  </world>
+</sdf>

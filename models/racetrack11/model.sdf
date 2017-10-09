@@ -1,0 +1,42 @@
+<?xml version='1.0'?>
+<sdf version='1.6'>
+  <model name='race_track11'>
+    <static>true</static>
+    <link name='link'>
+      <visual name='visual'>
+        <geometry>
+          <box>
+            <size>1.077 2.176 0.000553</size>
+          </box>
+        </geometry>
+        <material>
+          <script>
+            <name>RaceTrack11/track11</name>
+	    <uri>model://racetrack11/materials/scripts</uri>
+            <uri>model://racetrack11/materials/textures</uri>
+          </script>
+          <ambient>1 1 1 1</ambient>
+          <diffuse>1 1 1 1</diffuse>
+          <specular>0.01 0.01 0.01 1</specular>
+          <emissive>1 1 1 1</emissive>
+        </material>
+        <transparency>0</transparency>
+      </visual>
+      <collision name='collision'>
+        <geometry>
+          <box>
+            <size>1.077 2.176 0.000553</size>
+          </box>
+        </geometry>
+	<surface>
+          <friction>
+            <ode>
+              <mu>100</mu>
+              <mu2>50</mu2>
+            </ode>
+          </friction>
+        </surface>
+      </collision>
+    </link>
+  </model>
+</sdf>
