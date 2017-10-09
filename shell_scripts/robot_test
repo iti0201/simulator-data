@@ -7,7 +7,7 @@ DIRECTORY="iti0201"
 
 if [ "$#" -lt 3 ]; then
     echo "USAGE: robot_test [uni-id] [exercise_number] [map_number]"
-    echo "You can also add optional arguments of [sonar_noise], [gyro_noise] and [wait_time]"
+    echo "You can also add optional arguments of [sonar_noise], [gyro_noise], [wait_time], [x] and [y] and [yaw]"
     exit 0
 fi
 
@@ -15,23 +15,48 @@ git_user_name=$1
 exercise_number=$2
 map_number=$3
 
-if [ -z "$4" ]; then
-    sonar_noise=0
-else
-    sonar_noise=$4
-fi
+sonar_noise=0
+gyro_noise=0
+waiting_time=20
 
-if [ -z "$5" ]; then
-    gyro_noise=0
-else
-    gyro_noise=$5
-fi
+yaw_start=0
 
-if [ -z "$6" ]; then
-    waiting_time=20
-else
-    waiting_time=$6
-fi
+for i in "$@"
+do
+case $i in
+    -s=*|--sonar=*)
+    sonar_noise="${i#*=}"
+    shift # past argument=value
+    ;;
+    -g=*|--gyro=*)
+    gyro_noise="${i#*=}"
+    shift # past argument=value
+    ;;
+    -w=*|--wait=*)
+    waiting_time="${i#*=}"
+    shift # past argument=value
+    ;;
+    -x=*|--xstart=*)
+    x_start="${i#*=}"
+    shift # past argument=value
+    ;;
+    -y=*|--ystart=*)
+    y_start="${i#*=}"
+    shift # past argument=value
+    ;;
+    -Y=*|--yawstart=*)
+    yaw_start="${i#*=}"
+    shift # past argument=value
+    ;;
+    --default)
+    DEFAULT=YES
+    shift # past argument with no value
+    ;;
+    *)
+          # unknown option
+    ;;
+esac
+done
 
 git_address="https://$git_user_name@gitlab.cs.ttu.ee/$git_user_name/$DIRECTORY.git"
 
@@ -64,7 +89,21 @@ if ! [ -f "robot.py" ]; then
     exit 1
 fi
 
+if [[ -z "$x_start" || -z "$y_start" ]]; then
+    echo "x and y not set, loading default position"
+else
+    map_number+="_custom"
+    echo "$map_number"
+fi
+
 x-terminal-emulator -e roslaunch lego_gazebo lego.launch dir:=$exercise_number map:=$map_number sonar_noise:=$sonar_noise gyro_noise:=$gyro_noise
+
+if [[ -z "$x_start" || -z "$y_start" ]]; then
+    echo "spawning model at default location"
+else
+    echo "spawning model at specified location"
+    x-terminal-emulator -e rosrun gazebo_ros spawn_model -file  -sdf -x "$x_start" -y "$y_start" -Y "$yaw_start" -model lego_robot 
+fi
 
 x-terminal-emulator -e script_launch ~/$DIRECTORY/$exercise_number $waiting_time
 
