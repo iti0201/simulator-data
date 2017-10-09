@@ -102,7 +102,7 @@ if [[ -z "$x_start" || -z "$y_start" ]]; then
     echo "spawning model at default location"
 else
     echo "spawning model at specified location"
-    x-terminal-emulator -e rosrun gazebo_ros spawn_model -file  -sdf -x "$x_start" -y "$y_start" -Y "$yaw_start" -model lego_robot 
+    x-terminal-emulator -e rosrun gazebo_ros spawn_model -file `rospack find lego_gazebo`/../../../models/lego_mindstorm/model.sdf -sdf -x "$x_start" -y "$y_start" -Y "$yaw_start" -model lego_robot 
 fi
 
 x-terminal-emulator -e script_launch ~/$DIRECTORY/$exercise_number $waiting_time
