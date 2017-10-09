@@ -116,7 +116,7 @@ class GazMotor:
             twist = Twist()
             angular = geometry_msgs.msg.Vector3()
             linear = geometry_msgs.msg.Vector3()
-            angular.x = math.radians(kwargs['speed_sp'])
+            angular.x = math.radians(speed_sp)
             counter += 1
             twist.angular = angular
             twist.linear = linear
