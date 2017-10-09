@@ -815,7 +815,7 @@ class Motor(Device):
     def run_timed(self, **kwargs):
         """Run the motor for the amount of time specified in `time_sp`
         and then stop the motor using the action specified by `stop_action`.
-        This mock only implements the 'brake' stop_action.
+        This mock only implements the 'coast' stop_action.
         """
         if 'speed_sp' not in kwargs:
             kwargs['speed_sp'] = self._speed_sp
@@ -850,7 +850,7 @@ class Motor(Device):
     def stop(self, **kwargs):
         """Stop any of the run commands before they are complete using the
         action specified by `stop_action`.
-        This mock only implements the 'brake' stop_action.
+        This mock only implements the 'coast' stop_action.
         """
         self._motor.stop_thread()
         self._threads = []

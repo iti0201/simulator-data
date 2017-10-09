@@ -31,9 +31,9 @@ class GazMotor:
         elif (speed_sp < -max_speed):
             speed_sp = -max_speed
 
-        t_end = time.time() + kwargs['time_sp'] / 1000
+        t_end = rospy.get_time() + kwargs['time_sp'] / 1000
 
-        while not rospy.is_shutdown() and not self.stopped and time.time() < t_end:
+        while not rospy.is_shutdown() and not self.stopped and rospy.get_time() < t_end:
             if self.motor_counter != current_counter:
                 return
             # print(counter)
@@ -157,7 +157,7 @@ class GazMotor:
 
             # rospy.loginfo(twist)
             pub.publish(twist)
-            time.sleep(0.1)
+            rospy.sleep(0.1)
 
     def activate_thread(self):
 
