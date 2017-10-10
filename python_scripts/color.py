@@ -8,6 +8,7 @@ import time
 
 c = ev3.ColorSensor('in3')
 
-print(c.value)
+while True:
+    print(c.reflected_light_intensity)
 
 

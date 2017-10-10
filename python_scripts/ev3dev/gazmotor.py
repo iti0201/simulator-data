@@ -31,9 +31,15 @@ class GazMotor:
         elif (speed_sp < -max_speed):
             speed_sp = -max_speed
 
-        t_end = rospy.get_time() + kwargs['time_sp'] / 1000
+        current_time = rospy.get_time()
+        while current_time == 0: # this is necessary because for some reason sometimes rospy.get_time() outputs 0
+            current_time = rospy.get_time()
+
+        t_end = current_time + kwargs['time_sp'] / 1000
 
         while not rospy.is_shutdown() and not self.stopped and rospy.get_time() < t_end:
+            #rint("current time: " + str(rospy.get_time()))
+            #print("end time: " + str(t_end))
             if self.motor_counter != current_counter:
                 return
             # print(counter)

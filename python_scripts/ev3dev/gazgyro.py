@@ -29,7 +29,10 @@ class GazGyro:
                 self.initial_yaw = self.get_yaw()
                 self.current_yaw = self.initial_yaw
                 self.previous_yaw = self.initial_yaw
-                self.current_time = rospy.get_time()
+                current_time = rospy.get_time()
+                while current_time == 0: # this is necessary because for some reason sometimes rospy.get_time() outputs 0
+                    current_time = rospy.get_time()
+                self.current_time = current_time
                 # print("just set the initial yaw to: ", self.initial_yaw)
             else:
                 self.get_yaw()
@@ -79,7 +82,10 @@ class GazGyro:
             previous_yaw = self.previous_yaw
             previous_time = self.current_time
             self.previous_yaw = yaw
-            self.current_time = rospy.get_time()
+            current_time = rospy.get_time()
+            while current_time == 0: # this is necessary because for some reason sometimes rospy.get_time() outputs 0
+                current_time = rospy.get_time()
+            self.current_time = current_time
             yaw_difference = self.previous_yaw - previous_yaw
             if yaw_difference < -270:
                 yaw_difference += 360
