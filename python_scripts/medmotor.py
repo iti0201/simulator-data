@@ -9,8 +9,8 @@ print('bonjour')
 
 m = ev3.MediumMotor('outB')
 
-m.speed_sp = 200
-m.run_to_abs_pos(position_sp=0)
+m.speed_sp = 100
+m.run_to_abs_pos(position_sp=90)
 
 print('done it!')
 

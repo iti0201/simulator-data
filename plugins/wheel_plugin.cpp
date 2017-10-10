@@ -94,7 +94,9 @@ namespace gazebo {
         rot_ = 0;
         alive_ = true;
 
-        joint_state_publisher_ = gazebo_ros_->node()->advertise<sensor_msgs::JointState>("joint_states", 1000);
+        ros::NodeHandle* node_handle_ = new ros::NodeHandle("lego_robot");
+
+        joint_state_publisher_ = node_handle_->advertise<sensor_msgs::JointState>("joint_states", 1000);
 
         ros::SubscribeOptions so =
                 ros::SubscribeOptions::create<geometry_msgs::Twist>(command_topic_, 1,
@@ -102,7 +104,7 @@ namespace gazebo {
                                                                                 this, _1),
                                                                     ros::VoidPtr(), &queue_);
 
-        cmd_vel_subscriber_ = gazebo_ros_->node()->subscribe(so);
+        cmd_vel_subscriber_ = node_handle_->subscribe(so);
 
         // start custom queue for wheel move
         this->callback_queue_thread_ =

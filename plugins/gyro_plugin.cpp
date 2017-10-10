@@ -86,7 +86,9 @@ namespace gazebo {
         else this->update_period_ = 0.0;
         last_update_time_ = parent->GetWorld()->GetSimTime();
 
-        joint_state_publisher_ = gazebo_ros_->node()->advertise<sensor_msgs::JointState>("gyro_joint_states", 1000);
+        ros::NodeHandle* node_handle_ = new ros::NodeHandle("lego_robot");
+
+        joint_state_publisher_ = node_handle_->advertise<sensor_msgs::JointState>("gyro_joint_states", 1000);
 
         // start custom queue for wheel move
         this->callback_queue_thread_ =
