@@ -6,7 +6,7 @@
       <visual name='visual'>
         <geometry>
           <box>
-            <size>1.507 2.739 000553</size>
+            <size>1.507 2.739 0.000553</size>
           </box>
         </geometry>
         <material>
