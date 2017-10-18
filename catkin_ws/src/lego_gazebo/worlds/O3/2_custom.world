@@ -14,7 +14,7 @@
 
     <model name='unit_cylinder1_1'>
       <link name='link'>
-        <pose frame=''>3.0 1.80 0.14 0 -0 0</pose>
+        <pose frame=''>1.80 0.60 0.14 0 -0 0</pose>
         <inertial>
           <mass>1</mass>
           <inertia>
@@ -118,7 +118,7 @@
 
     <model name='unit_cylinder1_2'>
       <link name='link'>
-        <pose frame=''>1.21 1.80 0.14 0 -0 0</pose>
+        <pose frame=''>2.70 0.60 0.14 0 -0 0</pose>
         <inertial>
           <mass>1</mass>
           <inertia>
@@ -222,7 +222,7 @@
 
     <model name='unit_cylinder1_3'>
       <link name='link'>
-        <pose frame=''>1.21 0.61 0.14 0 -0 0</pose>
+        <pose frame=''>2.70 1.80 0.14 0 -0 0</pose>
         <inertial>
           <mass>1</mass>
           <inertia>
