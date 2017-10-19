@@ -995,9 +995,9 @@ class LargeMotor(Motor):
     SYSTEM_DEVICE_NAME_CONVENTION = '*'
 
     def __init__(self, address=None, name_pattern=SYSTEM_DEVICE_NAME_CONVENTION, name_exact=False, **kwargs):
-        if address is 'outA' or address is 'OutA':
+        if address is 'outA':
             wheel = 'left'
-        elif address is 'outD' or address is 'OutD':
+        elif address is 'outD':
             wheel = 'right'
         else:
             print('Sorry, this simulation assumes that the left motor is plugged into port A and '
@@ -1058,7 +1058,7 @@ class MediumMotor(Motor):
     SYSTEM_DEVICE_NAME_CONVENTION = '*'
 
     def __init__(self, address=None, name_pattern=SYSTEM_DEVICE_NAME_CONVENTION, name_exact=False, **kwargs):
-        if address is not 'outB' and address is not 'OutB':
+        if address is not 'outB':
             print('Sorry, this simulation assumes that the medium motor is plugged in to port outB')
             os._exit(1)
 
