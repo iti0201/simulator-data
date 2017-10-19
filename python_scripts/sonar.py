@@ -6,7 +6,7 @@ import rospy
 import time
 
 
-c = ev3.UltrasonicSensor('In2')
+c = ev3.UltrasonicSensor('in1')
 # TODO FLOOR
 
 print(c.value)
