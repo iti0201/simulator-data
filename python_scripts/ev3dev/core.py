@@ -995,14 +995,14 @@ class LargeMotor(Motor):
     SYSTEM_DEVICE_NAME_CONVENTION = '*'
 
     def __init__(self, address=None, name_pattern=SYSTEM_DEVICE_NAME_CONVENTION, name_exact=False, **kwargs):
-        if address is 'outA':
+        if address is 'outA' or 'OutA':
             wheel = 'left'
-        elif address is 'outD':
+        elif address is 'outD' or 'OutD':
             wheel = 'right'
         else:
             print('Sorry, this simulation assumes that the left motor is plugged into port A and '
                   'right motor is plugged into port D.')
-            sys.exit()
+            os._exit(1)
         m = GazMotor(wheel)
 
         super(LargeMotor, self).__init__(address, name_pattern, name_exact,
@@ -1058,7 +1058,9 @@ class MediumMotor(Motor):
     SYSTEM_DEVICE_NAME_CONVENTION = '*'
 
     def __init__(self, address=None, name_pattern=SYSTEM_DEVICE_NAME_CONVENTION, name_exact=False, **kwargs):
-
+        if address is not 'outB' and 'OutB':
+            print('Sorry, this simulation assumes that the medium motor is plugged in to port outB')
+            os._exit(1)
 
         med = GazMedMotor()
 
@@ -2031,6 +2033,9 @@ class ColorSensor(Sensor):
     SYSTEM_DEVICE_NAME_CONVENTION = Sensor.SYSTEM_DEVICE_NAME_CONVENTION
 
     def __init__(self, address=None, name_pattern=SYSTEM_DEVICE_NAME_CONVENTION, name_exact=False, **kwargs):
+        if address is not 'In4' and 'in4':
+            print('Sorry, this simulation assumes that the color sensor is plugged in to port In4')
+            os._exit(1)
         super(ColorSensor, self).__init__(address, name_pattern, name_exact, driver_name=['lego-ev3-color'], **kwargs)
         self.auto_mode = True
         self._sensor = GazColor()
@@ -2161,6 +2166,9 @@ class UltrasonicSensor(Sensor):
     SYSTEM_DEVICE_NAME_CONVENTION = Sensor.SYSTEM_DEVICE_NAME_CONVENTION
 
     def __init__(self, address=None, name_pattern=SYSTEM_DEVICE_NAME_CONVENTION, name_exact=False, **kwargs):
+        if address is not 'In1' and 'in1':
+            print('Sorry, this simulation assumes that the ultrasonic sensor is plugged in to port In1')
+            os._exit(1)
         super(UltrasonicSensor, self).__init__(address, name_pattern, name_exact,
                                                driver_name=['lego-ev3-us', 'lego-nxt-us'], **kwargs)
         self.auto_mode = True
@@ -2239,6 +2247,9 @@ class GyroSensor(Sensor):
     SYSTEM_DEVICE_NAME_CONVENTION = Sensor.SYSTEM_DEVICE_NAME_CONVENTION
 
     def __init__(self, address=None, name_pattern=SYSTEM_DEVICE_NAME_CONVENTION, name_exact=False, **kwargs):
+        if address is not 'In2' and 'in2':
+            print('Sorry, this simulation assumes that the gyro sensor is plugged in to port In2')
+            os._exit(1)
         super(GyroSensor, self).__init__(address, name_pattern, name_exact, driver_name=['lego-ev3-gyro'], **kwargs)
         self.auto_mode = True
 

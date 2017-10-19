@@ -7,7 +7,7 @@ import time
 
 ev3.LargeMotor('outA').run_timed(speed_sp=400, time_sp=4000)
 
-gyro = ev3.GyroSensor('In3')
+gyro = ev3.GyroSensor('In2')
 
 for i in range(10):
     stuff = gyro.rate_and_angle

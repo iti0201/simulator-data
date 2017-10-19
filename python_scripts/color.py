@@ -6,7 +6,7 @@ import rospy
 import time
 
 
-c = ev3.ColorSensor('in3')
+c = ev3.ColorSensor('in4')
 
 while True:
     print(c.reflected_light_intensity)
