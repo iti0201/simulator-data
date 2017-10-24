@@ -569,7 +569,7 @@ class Motor(Device):
         not necessarily degrees (although it is for LEGO motors). Use the `count_per_rot`
         attribute to convert this value to RPM or deg/sec.
         """
-        return self._speed
+        return int('{0:g}'.format(round(self._motor.get_speed(), 0)))
 
     @property
     def speed_sp(self):
