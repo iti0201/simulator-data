@@ -14,12 +14,12 @@
     <include>
       <uri>model://lego_mindstorm</uri>
       <name>lego_robot</name>
-      <pose>1.81 1.21 0 0 0 0</pose> <!-- this is the robot's starting position, if you know where it should be, you can change this -->
+      <pose>2.10 1.50 0 0 0 0</pose> <!-- this is the robot's starting position, if you know where it should be, you can change this -->
     </include>
 
     <model name='unit_cylinder1_1'>
       <link name='link'>
-        <pose frame=''>0.481 0.481 0.14 0 -0 0</pose>
+        <pose frame=''>1.810 1.120 0.14 0 -0 0</pose>
         <inertial>
           <mass>1</mass>
           <inertia>

@@ -14,7 +14,7 @@
 
     <model name='unit_cylinder1_1'>
       <link name='link'>
-        <pose frame=''>0.481 0.481 0.14 0 -0 0</pose>
+        <pose frame=''>1.810 1.120 0.14 0 -0 0</pose>
         <inertial>
           <mass>1</mass>
           <inertia>
