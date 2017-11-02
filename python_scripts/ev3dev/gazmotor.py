@@ -19,12 +19,32 @@ class GazMotor:
         self.motor_counter = 0
         self.current_speed = 0
         self.current_yaw = 0
+        self.current_angle = 0
+        self.previous_wheel_yaw = None
         sub = rospy.Subscriber('gazebo/link_states', LinkStates, self.linkcallback)
         sub2 = rospy.Subscriber('gazebo/model_states', ModelStates, self.modelcallback)
 
     def linkcallback(self, data):
         index = data.name.index('lego_robot::' + str(self.wheel) + '_wheel')
         self.current_speed = data.twist[index].angular.x
+        wheel_orientation = data.pose[index].orientation
+        quaternion = (
+                wheel_orientation.x,
+                wheel_orientation.y,
+                wheel_orientation.z,
+                wheel_orientation.w)
+        euler = euler_from_quaternion(quaternion)
+        wheel_yaw = euler[1]
+        if self.previous_wheel_yaw is not None:
+            delta = math.fabs(self.previous_wheel_yaw - wheel_yaw)
+            if self.get_speed() > 0:
+                #print("Current angle: " + str(self.current_angle))
+                self.current_angle += delta
+            elif self.get_speed() < 0:
+                self.current_angle -= delta
+        self.previous_wheel_yaw = wheel_yaw
+
+        #print(self.current_angle)
         #if str(self.wheel) == 'left':
          #   print(str(self.current_speed))
 
@@ -202,10 +222,16 @@ class GazMotor:
     def set_duty_cycle_sp(self, duty_cycle_sp):
         self.duty_cycle_sp = duty_cycle_sp
 
+    def set_position(self, position):
+        self.current_angle = math.radians(position)
+
     def get_speed(self):
         if math.cos(self.current_yaw) == 0:
             return 0
         return -math.degrees(self.current_speed / math.cos(self.current_yaw))
+
+    def get_ticks(self):
+        return math.degrees(self.current_angle)
 
 def quaternion_matrix(quaternion):
     """Return homogeneous rotation matrix from quaternion.

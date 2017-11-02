@@ -500,11 +500,12 @@ class Motor(Device):
         Likewise, rotating counter-clockwise causes the position to decrease.
         Writing will set the position to that value.
         """
-        return self._position
+        return int('{0:g}'.format(round(self._motor.get_ticks(), 0)))
 
     @position.setter
     def position(self, value):
         self._position = value
+        self._motor.set_position(self._position)
 
     @property
     def position_p(self):
