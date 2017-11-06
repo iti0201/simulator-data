@@ -864,9 +864,9 @@ class Motor(Device):
         self._count_per_rot = 360
         self._driver_name = 'lego-ev3-l-motor'
         self._duty_cycle = 0
-        self._duty_cycle_sp = 0
+        self.duty_cycle_sp = 0
         self._polarity = 'normal'
-        self._position = 0
+        self.position = 0
         self._position_p = 80000
         self._position_i = 0
         self._position_d = 0
