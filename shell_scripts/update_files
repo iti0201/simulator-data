@@ -2,6 +2,8 @@
 
 cd /home/student
 
+rm -rf iti0201
+
 DIRECTORY="simulator"
 git_address="https://github.com/iti0201/$DIRECTORY.git"
 
