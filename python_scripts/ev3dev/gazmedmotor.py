@@ -97,3 +97,6 @@ class GazMedMotor:
 
     def set_duty_cycle_sp(self, duty_cycle_sp):
         self.duty_cycle_sp = duty_cycle_sp
+
+    def get_ticks(self):
+        return -math.degrees(self.current)
