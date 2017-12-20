@@ -14,12 +14,12 @@
     <include>
       <uri>model://lego_mindstorm</uri>
       <name>lego_robot</name>
-      <pose>3.15 0.5 0 0 0 0</pose> <!-- this is the robot's starting position, if you know where it should be, you can change this -->
+      <pose>2.7 0.9 0 0 0 0</pose> <!-- this is the robot's starting position, if you know where it should be, you can change this -->
     </include>
 
     <model name='unit_cylinder1_1'>
       <link name='link'> <!-- 3600 alla, 2400 paremale --> <!-- paremale X, alla Y -->
-        <pose frame=''>0.771 1.274 0.14 0 -0 0</pose> <!-- X Y Z paremale 1274, 771 alla -->
+        <pose frame=''>1.063 0.843 0.14 0 -0 0</pose> <!-- X Y Z paremale 843, 1063 alla -->
         <inertial>
           <mass>1</mass>
           <inertia>
@@ -123,7 +123,7 @@
 
     <model name='unit_cylinder1_2'>
       <link name='link'>
-        <pose frame=''>2.187 0.245 0.14 0 -0 0</pose> <!-- X Y Z paremale 245, 2187 alla -->
+        <pose frame=''>2.275 0.564 0.14 0 -0 0</pose> <!-- X Y Z paremale 564, 2275 alla -->
         <inertial>
           <mass>1</mass>
           <inertia>
@@ -227,7 +227,7 @@
 
     <model name='unit_cylinder1_3'>
       <link name='link'>
-        <pose frame=''>2.868 1.183 0.14 0 -0 0</pose> <!-- X Y Z paremale 1183, 2868 alla -->
+        <pose frame=''>2.467 1.393 0.14 0 -0 0</pose> <!-- X Y Z paremale 1393, 2467 alla -->
         <inertial>
           <mass>1</mass>
           <inertia>
